@@ -14,5 +14,12 @@ def Least_moves(k):
         else:
             k = k / 2
             i = i + 1
-    return i
     print(i)
+    return i
+    
+ 
+
+
+#test
+Least_moves(2)
+Least_moves(5)
