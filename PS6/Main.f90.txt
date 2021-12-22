@@ -1,0 +1,44 @@
+Program FileWriteTest
+
+implicit none
+
+integer  :: u
+integer  :: i, j 
+integer  :: m, n
+real(4), dimension(5,3)     :: a
+real(4), dimension(3,5)     :: b
+real(4), dimension(5,5)     :: c
+
+open(10, file = 'M.dat', status = 'old')
+read(10,*) ((a(j,i), i=1,3),j=1,5)
+close(10)
+
+open(11, file = 'N.dat', status = 'old')
+read(11,*) ((b(n,m), m=1,5),n=1,3)
+close(11)
+
+open(12, file = 'new.dat', status = 'replace')
+write(12,*) a
+close(12)
+
+print*, 'M'
+do i = 1,5
+write(*,*) a(i,:)
+enddo
+
+print*, 'N'
+do i = 1,3
+write(*,*) b(i,:)
+enddo
+
+call matrix_multi(a,b,c)
+
+open(13, file = 'MN.dat', status = 'replace')
+do i = 1,5
+write(13,'(f9.2)') c(i,:)
+enddo
+
+close(13)
+
+End Program FileWriteTest
+

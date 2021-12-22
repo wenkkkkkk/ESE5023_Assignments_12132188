@@ -1,0 +1,33 @@
+module Solar_hour_angle
+
+implicit none 
+
+real, parameter :: pi = 3.1415926536  
+
+contains
+
+subroutine S_h_angle(d,lon,tz,LST,s_angle)
+
+integer, intent(in) :: d
+real, intent(in)    :: lon,tz,LST
+real                :: r,EoT,offset
+real                :: a,b,c,f
+real, intent(out)   :: s_angle
+
+
+a=0.001868
+b=0.032077
+c=0.014615
+f=0.040849
+
+r = 2*pi/365*(d-1+(LST-12)/24)
+
+EoT = 229.18*(0.000075+a*COS(r)-b*SIN(r)-c*COS(2*r)-f*sin(2*r))
+
+offset = EoT+4*(lon-15*tz)
+
+s_angle = 15*((LST+offset/60)-12)
+
+end subroutine S_h_angle
+end module Solar_hour_angle
+

@@ -1,0 +1,28 @@
+module Declination_angle
+
+
+implicit none 
+
+real, parameter :: pi = 3.1415926536  
+real, parameter :: e = 2.7182818285 
+   
+contains      
+
+subroutine D_angle(d,a)
+    
+integer, intent(in)   :: d
+real(4), intent(out)  :: a
+real(4) :: b
+
+b = 360/365.24
+
+a = ASIN(SIN(-23.44*pi/180)*COS(b*(d+10)+360/pi*0.0167*SIN(b*(d-2))))*180/pi
+
+      
+!print*, "Pi = ", pi          
+!print*,  "e = ", e     
+!write(*,*) "This is from module Constants"
+end subroutine D_angle 
+   
+end module Declination_angle
+

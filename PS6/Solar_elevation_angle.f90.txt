@@ -1,0 +1,30 @@
+program Solar_elevation_angle
+
+use Declination_angle
+use Solar_hour_angle
+
+implicit none
+
+real             :: pai = 3.1415926536 
+integer          :: d
+real             :: lon,tz,LST,lat
+real             :: a,s_angle
+!real            :: r,EoT,offset
+real             :: SEA
+
+!2021-12-31, 10:32, 114.062996E 22.542883N
+d = 364
+LST = 10+32/60
+lon = 114.03
+tz = 8
+lat = 22.32
+
+call D_angle(d,a)
+
+call S_h_angle(d,lon,tz,LST,s_angle)
+
+SEA = ASIN(SIN(lat)*SIN(a*pai/180)+COS(lat)*COS(a*pai/180)*COS(s_angle*pai/180))*180/pai
+
+write(*,*) 'SEA:', SEA
+
+end program Solar_elevation_angle
